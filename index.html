@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KMC Fresher Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KMC Welcome</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f2fef5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
       display: flex;
+      flex-direction: row;
       height: 100vh;
       overflow: hidden;
     }
@@ -17,101 +20,97 @@
     .container {
       display: flex;
       width: 100%;
-    }
-
-    .left {
-      flex: 1;
-      background-color: #d2edda;
-      padding: 2rem;
-      overflow-y: auto;
+      height: 100vh;
     }
 
     .letter-box {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 50%;
+      padding: 30px;
+      box-sizing: border-box;
+      background-color: #e6f4ea;
+      color: #003300;
+      overflow-y: auto;
+      position: relative;
     }
 
-    .right {
-      flex: 1;
-      padding: 2rem;
+    .letter {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .mask {
+      position: absolute;
+      top: 230px;
+      left: 145px;
+      width: 60px;
+      height: 20px;
+      background-image: url('https://i.imgur.com/3Y2G46U.png');
+      background-size: cover;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .puzzle-section {
+      width: 50%;
+      padding: 30px;
+      background-color: #ffffff;
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: start;
+      position: relative;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(6, 40px);
-      grid-gap: 6px;
-      margin-bottom: 1rem;
-    }
-
-    .cell {
-      width: 40px;
-      height: 40px;
-      background-color: #ffffff;
-      border: 2px solid #97d4a6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .cell.found {
-      background-color: #97d4a6;
-      color: white;
-    }
-
-    .input-box {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 1rem;
-    }
-
-    .input-box input {
+    #wordInput {
+      margin-top: 20px;
       padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 80%;
     }
 
-    .input-box button {
-      background-color: #4caf50;
-      color: white;
-      padding: 10px 16px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
+    #submitWord {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin-top: 10px;
       cursor: pointer;
     }
 
-    .congrats {
+    #messageField {
+      margin-top: 30px;
+      width: 80%;
+    }
+
+    #countdown {
       font-size: 1.2rem;
-      color: #388e3c;
+      color: #004400;
       margin-top: 20px;
       display: none;
-      animation: fadeIn 1s ease-in-out forwards;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+    .easter-egg {
+      display: none;
+      font-size: 1.5rem;
+      color: #cc0000;
+      margin-top: 30px;
+      animation: pop 0.6s ease-in-out forwards;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <div class="left">
-      <div class="letter-box">
-        <h2>Welcome to Kirori Mal College!</h2>
-        <p>Dear Freshers,<br><br>
-        Dear Fresher,
+    <div class="letter-box">
+      <div class="mask" id="mask"></div>
+      <div class="letter">
+        Dear Fresher,<br /><br />
+       Dear Fresher,
 
 Welcome to Kirori Mal College - your new home for the next three years, and perhaps a piece of your heart for much longer.
 
@@ -128,81 +127,84 @@ Here’s to friendships that begin in classrooms, stories that unfold in corrido
 We’re so glad you’re here.
 
 With warmth,
-A senior, a stranger - or someone who just remembers what it felt like to start this journey.
-<br><br>
-        This is your first task. Solve the fun puzzle on the right, and meet us on <strong>5th August in the Canteen Lawn</strong> with your answers!
-        </p>
+A senior, a stranger - or someone who just remembers what it felt like to start this journey.<br />
+        [Masked Name: 180DC]<br />
       </div>
     </div>
-    <div class="right">
-      <div class="grid" id="puzzle-grid"></div>
-      <div class="input-box">
-        <input type="text" id="guess" placeholder="Enter a word...">
-        <button onclick="submitGuess()">Submit</button>
-      </div>
-      <div class="congrats" id="congrats-message">
-        🎉 Congratulations on finding all the words! <br> See you on 5th August in the Canteen Lawn.
-      </div>
+    <div class="puzzle-section">
+      <input type="text" id="wordInput" placeholder="Type a word you see..." />
+      <button id="submitWord">Submit</button>
+
+      <div id="countdown"></div>
+
+      <textarea id="messageField" rows="4" placeholder="Write a message for yourself to read after first year..."></textarea>
+
+      <div class="easter-egg" id="easterEgg">Didn't know you were this good 😏</div>
     </div>
   </div>
 
   <script>
-    const gridData = [
-      ['K', 'F', 'R', 'E', 'S', 'H'],
-      ['E', 'B', 'C', 'L', 'D', 'U'],
-      ['A', 'R', 'E', 'A', 'O', 'Y'],
-      ['D', 'R', 'E', 'A', 'D', 'Y'],
-      ['X', 'A', 'T', 'W', 'O', 'P'],
-      ['P', 'Q', 'Z', 'M', 'C', 'K'],
-    ];
-
-    const words = ['KMC', 'FRESHER', 'READY', 'DEAL', 'WELCOME'];
     const foundWords = new Set();
+    const targetWords = ["kmc", "fresher", "ready", "fun", "explore"];
+    const input = document.getElementById("wordInput");
+    const submitBtn = document.getElementById("submitWord");
+    const countdownDiv = document.getElementById("countdown");
+    const easterEgg = document.getElementById("easterEgg");
+    const mask = document.getElementById("mask");
 
-    const gridElement = document.getElementById('puzzle-grid');
+    submitBtn.addEventListener("click", () => {
+      const word = input.value.trim().toLowerCase();
+      if (!word) return;
 
-    function createGrid() {
-      gridElement.innerHTML = '';
-      for (let i = 0; i < gridData.length; i++) {
-        for (let j = 0; j < gridData[i].length; j++) {
-          const cell = document.createElement('div');
-          cell.className = 'cell';
-          cell.textContent = gridData[i][j];
-          gridElement.appendChild(cell);
+      if (word === "180dc") {
+        easterEgg.style.display = "block";
+        document.querySelector(".puzzle-section").innerHTML = "";
+        return;
+      }
+
+      if (targetWords.includes(word) && !foundWords.has(word)) {
+        foundWords.add(word);
+        if (foundWords.size === targetWords.length) {
+          showFinalMessage();
         }
       }
+      input.value = "";
+    });
+
+    function showFinalMessage() {
+      const msg = document.createElement("div");
+      msg.style.marginTop = "20px";
+      msg.style.fontSize = "1.3rem";
+      msg.style.color = "#006600";
+      msg.textContent = "🎉 Congratulations on finding all the words! See you on 5th August in the Canteen Lawn!";
+      document.querySelector(".puzzle-section").appendChild(msg);
+
+      countdownDiv.style.display = "block";
+      startCountdown("2025-08-05T10:00:00");
     }
 
-    function submitGuess() {
-      const guessInput = document.getElementById('guess');
-      const guess = guessInput.value.trim().toUpperCase();
-      if (!guess) return;
-
-      if (words.includes(guess) && !foundWords.has(guess)) {
-        foundWords.add(guess);
-        highlightWord(guess);
-      }
-
-      if (foundWords.size === words.length) {
-        document.getElementById('congrats-message').style.display = 'block';
-      }
-
-      guessInput.value = '';
-    }
-
-    function highlightWord(word) {
-      const flatCells = document.querySelectorAll('.cell');
-      word.split('').forEach(letter => {
-        for (let cell of flatCells) {
-          if (cell.textContent === letter && !cell.classList.contains('found')) {
-            cell.classList.add('found');
-            break;
-          }
+    function startCountdown(targetDateStr) {
+      const targetDate = new Date(targetDateStr).getTime();
+      const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        if (distance < 0) {
+          clearInterval(timer);
+          countdownDiv.textContent = "⏳ It's time!";
+          return;
         }
-      });
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        countdownDiv.textContent = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s left!`;
+      }, 1000);
     }
 
-    createGrid();
+    mask.addEventListener("click", () => {
+      mask.style.display = "none";
+    });
   </script>
 </body>
+
 </html>

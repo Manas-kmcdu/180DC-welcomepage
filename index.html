@@ -1,223 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KMC Welcome</title>
+  <meta charset="UTF-8">
+  <title>Welcome Letter Page</title>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
       display: flex;
       flex-direction: row;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      background: #f0f8f5;
     }
 
-    .container {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      height: 100vh;
-    }
-
-    .letter-box {
-      width: 50%;
-      padding: 30px;
-      box-sizing: border-box;
-      background-color: #e6f4ea;
-      color: #003300;
+    .left-section, .right-section {
+      flex: 1;
+      padding: 2rem;
       overflow-y: auto;
+    }
+
+    .left-section {
+      background: #e2f0e8;
+      color: #083d2b;
       position: relative;
     }
 
     .letter {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      position: relative;
+      border: 2px solid #083d2b;
+      padding: 1rem;
+      border-radius: 10px;
+      background: white;
+      white-space: pre-wrap;
     }
 
     .mask {
       position: absolute;
-      top: 230px;
-      left: 145px;
-      width: 60px;
-      height: 20px;
-      background-image: url('https://i.imgur.com/3Y2G46U.png');
+      top: 180px;
+      left: 70px;
+      width: 80px;
+      height: 25px;
+      background: url('https://www.transparenttextures.com/patterns/cardboard.png');
       background-size: cover;
-      cursor: pointer;
       z-index: 10;
+      cursor: pointer;
     }
 
-    .puzzle-section {
-      width: 50%;
-      padding: 30px;
-      background-color: #ffffff;
-      box-sizing: border-box;
+    .mask.hidden {
+      display: none;
+    }
+
+    .right-section {
+      background: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      position: relative;
     }
 
-    #wordInput, #submitWord, #messageField {
-      width: 80%;
-      margin-top: 15px;
-      font-size: 1rem;
+    #puzzle-container {
+      display: grid;
+      grid-template-columns: repeat(10, 30px);
+      gap: 5px;
+      margin: 1rem 0;
+    }
+
+    .cell {
+      width: 30px;
+      height: 30px;
+      background: #d0eee0;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    #submitWord {
-      background-color: #006600;
-      color: #fff;
-      border: none;
-      transition: background-color 0.3s;
+    input[type="text"], button {
+      padding: 0.5rem;
+      margin: 0.5rem 0;
     }
 
-    #submitWord:hover {
-      background-color: #004d00;
-    }
-
-    #countdown {
-      font-size: 1.2rem;
-      color: #004400;
-      margin-top: 20px;
-      display: none;
-    }
-
-    .easter-egg {
-      display: none;
-      font-size: 1.5rem;
-      color: #cc0000;
-      margin-top: 30px;
-      animation: pop 0.6s ease-in-out forwards;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.5); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    #congrats, #countdown-container, #future-message {
+      margin-top: 2rem;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
-      body, .container {
+      body {
         flex-direction: column;
-        height: auto;
       }
-      .letter-box, .puzzle-section {
-        width: 100%;
-        height: auto;
+
+      .mask {
+        top: 260px;
+        left: 40px;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="letter-box">
-      <div class="mask" id="mask"></div>
-      <div class="letter">
-        Dear Fresher,<br /><br />
-       Dear Fresher,
-
-Welcome to Kirori Mal College - your new home for the next three years, and perhaps a piece of your heart for much longer.
-
-Take a deep breath. You’ve made it.
-
-KMC isn’t just another college within Delhi University. It’s a place that will surprise you in the best ways. You’ll meet people who challenge your thinking, discover spaces you’ll claim as your own (maybe under the tree near the Arts block or over a cup of chai at Sudama), and slowly build your own rhythm here.
-
-Ask questions. Join societies. Get lost in the North Campus lanes. Volunteer for something that scares you. Speak up, even when your voice shakes. You’ll thank yourself later.
-
-And if you ever feel like you don’t belong - pause, breathe, and look around. So many of us started exactly like that… and found something beautiful along the way.
-
-Here’s to friendships that begin in classrooms, stories that unfold in corridors, and a version of yourself you’re yet to meet.
-
-We’re so glad you’re here.
-
-With warmth,
-A senior, a stranger - or someone who just remembers what it felt like to start this journey.<br />
-        [Masked Name: 180DC]<br />
-      </div>
+  <div class="left-section">
+    <div class="letter">
+      Dear Fresher,<br><br>
+      Welcome to Kirori Mal College.<br><br>
+      We are delighted to have you join us as part of this unforgettable journey. Here’s to the beginning of something magical. Let your curiosity lead the way, and your creativity shine!<br><br>
+      From all of us at 180DC, we hope this year fills you with experiences, challenges, and growth.<br><br>
+      Best Wishes,<br>
+      180DC KMC
     </div>
-    <div class="puzzle-section">
-      <input type="text" id="wordInput" placeholder="Type a word you see..." />
-      <button id="submitWord">Submit</button>
+    <div class="mask" title="Click to peek"></div>
+  </div>
 
-      <div id="countdown"></div>
+  <div class="right-section">
+    <h3>Find the hidden words!</h3>
+    <div id="puzzle-container"></div>
+    <input type="text" id="word-input" placeholder="Enter word">
+    <button onclick="checkWord()">Submit</button>
 
-      <textarea id="messageField" rows="4" placeholder="Write a message for yourself to read after first year..."></textarea>
+    <div id="congrats" style="display:none;">
+      🎉 Congratulations on finding all the words!<br>
+      See you on <strong>5th August</strong> in the Canteen Lawn.
+    </div>
 
-      <div class="easter-egg" id="easterEgg">Didn't know you were this good 😏</div>
+    <div id="countdown-container" style="display:none;">
+      ⏳ Countdown: <span id="countdown"></span>
+    </div>
+
+    <div id="future-message" style="display:none;">
+      <h4>📩 Message to Your Future Self:</h4>
+      <input type="text" id="future-input" placeholder="Write a message...">
+      <button onclick="saveMessage()">Save</button>
+      <p id="saved-msg" style="color: green;"></p>
     </div>
   </div>
 
   <script>
-    const foundWords = new Set();
-    const targetWords = ["kmc", "fresher", "ready", "fun", "explore"];
-    const input = document.getElementById("wordInput");
-    const submitBtn = document.getElementById("submitWord");
-    const countdownDiv = document.getElementById("countdown");
-    const easterEgg = document.getElementById("easterEgg");
-    const mask = document.getElementById("mask");
-    const puzzleSection = document.querySelector(".puzzle-section");
+    const words = ["WELCOME", "KMC", "JOURNEY", "GROWTH", "FUN"];
+    let foundWords = new Set();
 
-    submitBtn.addEventListener("click", () => {
-      const word = input.value.trim().toLowerCase();
-      if (!word) return;
+    const grid = [
+      ["W","E","L","C","O","M","E","X","X","X"],
+      ["X","X","X","X","X","X","X","X","X","X"],
+      ["X","X","K","M","C","X","X","X","X","X"],
+      ["X","X","X","X","X","X","X","X","X","X"],
+      ["F","U","N","X","X","X","X","X","X","X"],
+      ["X","X","X","X","G","R","O","W","T","H"],
+      ["X","X","X","X","X","X","X","X","X","X"],
+      ["X","J","O","U","R","N","E","Y","X","X"],
+      ["X","X","X","X","X","X","X","X","X","X"],
+      ["X","X","X","X","X","X","X","X","X","X"]
+    ];
 
-      if (word === "180dc") {
-        puzzleSection.innerHTML = `<div class='easter-egg'>Didn't know you were this good 😏</div>`;
+    const container = document.getElementById('puzzle-container');
+
+    function drawGrid() {
+      container.innerHTML = '';
+      for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          cell.textContent = grid[i][j];
+          container.appendChild(cell);
+        }
+      }
+    }
+
+    function checkWord() {
+      const input = document.getElementById('word-input').value.trim().toUpperCase();
+      if (input === "180DC") {
+        document.getElementById('congrats').innerHTML = "💥 Didn’t know you were this good!";
+        document.getElementById('congrats').style.display = 'block';
+        document.getElementById('countdown-container').style.display = 'none';
+        document.getElementById('future-message').style.display = 'none';
+        document.querySelector('.mask').classList.add('hidden');
         return;
       }
 
-      if (targetWords.includes(word) && !foundWords.has(word)) {
-        foundWords.add(word);
-        if (foundWords.size === targetWords.length) {
-          showFinalMessage();
-        }
+      if (words.includes(input) && !foundWords.has(input)) {
+        foundWords.add(input);
       }
-      input.value = "";
-    });
 
-    function showFinalMessage() {
-      const msg = document.createElement("div");
-      msg.style.marginTop = "20px";
-      msg.style.fontSize = "1.3rem";
-      msg.style.color = "#006600";
-      msg.textContent = "🎉 Congratulations on finding all the words! See you on 5th August in the Canteen Lawn!";
-      puzzleSection.appendChild(msg);
-
-      countdownDiv.style.display = "block";
-      startCountdown("2025-08-05T10:00:00");
+      if (foundWords.size === words.length) {
+        document.getElementById('congrats').style.display = 'block';
+        document.getElementById('countdown-container').style.display = 'block';
+        document.getElementById('future-message').style.display = 'block';
+        document.querySelector('.mask').classList.add('hidden');
+        startCountdown();
+      }
+      document.getElementById('word-input').value = '';
     }
 
-    function startCountdown(targetDateStr) {
-      const targetDate = new Date(targetDateStr).getTime();
-      const timer = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        if (distance < 0) {
-          clearInterval(timer);
-          countdownDiv.textContent = "⏳ It's time!";
+    function startCountdown() {
+      const eventDate = new Date("2025-08-05T10:00:00+05:30");
+      const countdownEl = document.getElementById('countdown');
+
+      const updateCountdown = () => {
+        const now = new Date();
+        const diff = eventDate - now;
+
+        if (diff <= 0) {
+          countdownEl.textContent = "🎉 It's today!";
+          clearInterval(interval);
           return;
         }
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        countdownDiv.textContent = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s left!`;
-      }, 1000);
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / 1000 / 60) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+
+        countdownEl.textContent = `${days}d ${hrs}h ${mins}m ${secs}s`;
+      };
+
+      updateCountdown();
+      const interval = setInterval(updateCountdown, 1000);
     }
 
-    mask.addEventListener("click", () => {
-      mask.style.display = "none";
+    function saveMessage() {
+      const msg = document.getElementById('future-input').value;
+      if (msg) {
+        document.getElementById('saved-msg').textContent = "✅ Message saved!";
+        // In a real scenario, you could use localStorage or a backend
+        console.log("Saved message:", msg);
+      }
+    }
+
+    document.querySelector('.mask').addEventListener('click', function () {
+      this.classList.add('hidden');
     });
+
+    drawGrid();
   </script>
 </body>
-
 </html>

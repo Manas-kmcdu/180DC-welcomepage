@@ -19,6 +19,7 @@
 
     .container {
       display: flex;
+      flex-direction: row;
       width: 100%;
       height: 100vh;
     }
@@ -59,27 +60,28 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: start;
+      justify-content: flex-start;
       position: relative;
     }
 
-    #wordInput {
-      margin-top: 20px;
-      padding: 10px;
-      font-size: 1rem;
+    #wordInput, #submitWord, #messageField {
       width: 80%;
+      margin-top: 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
     }
 
     #submitWord {
-      padding: 10px 20px;
-      font-size: 1rem;
-      margin-top: 10px;
-      cursor: pointer;
+      background-color: #006600;
+      color: #fff;
+      border: none;
+      transition: background-color 0.3s;
     }
 
-    #messageField {
-      margin-top: 30px;
-      width: 80%;
+    #submitWord:hover {
+      background-color: #004d00;
     }
 
     #countdown {
@@ -100,6 +102,17 @@
     @keyframes pop {
       from { transform: scale(0.5); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      body, .container {
+        flex-direction: column;
+        height: auto;
+      }
+      .letter-box, .puzzle-section {
+        width: 100%;
+        height: auto;
+      }
     }
   </style>
 </head>
@@ -151,14 +164,14 @@ A senior, a stranger - or someone who just remembers what it felt like to start 
     const countdownDiv = document.getElementById("countdown");
     const easterEgg = document.getElementById("easterEgg");
     const mask = document.getElementById("mask");
+    const puzzleSection = document.querySelector(".puzzle-section");
 
     submitBtn.addEventListener("click", () => {
       const word = input.value.trim().toLowerCase();
       if (!word) return;
 
       if (word === "180dc") {
-        easterEgg.style.display = "block";
-        document.querySelector(".puzzle-section").innerHTML = "";
+        puzzleSection.innerHTML = `<div class='easter-egg'>Didn't know you were this good 😏</div>`;
         return;
       }
 
@@ -177,7 +190,7 @@ A senior, a stranger - or someone who just remembers what it felt like to start 
       msg.style.fontSize = "1.3rem";
       msg.style.color = "#006600";
       msg.textContent = "🎉 Congratulations on finding all the words! See you on 5th August in the Canteen Lawn!";
-      document.querySelector(".puzzle-section").appendChild(msg);
+      puzzleSection.appendChild(msg);
 
       countdownDiv.style.display = "block";
       startCountdown("2025-08-05T10:00:00");

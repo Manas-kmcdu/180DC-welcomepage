@@ -98,6 +98,12 @@
         top: 260px;
         left: 40px;
       }
+
+      .cell {
+        width: 26px;
+        height: 26px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
@@ -142,19 +148,16 @@
     let foundWords = new Set();
 
     const grid = [
-      [
-  ["G", "R", "O", "W", "T", "H", "P", "J", "O", "U"],
-  ["O", "U", "R", "N", "E", "Y", "Q", "V", "L", "E"],
-  ["M", "B", "F", "S", "D", "C", "K", "N", "C", "T"],
-  ["C", "L", "A", "H", "M", "I", "E", "W", "R", "Z"],
-  ["W", "E", "L", "C", "O", "M", "E", "U", "S", "N"],
-  ["H", "D", "Z", "L", "Q", "T", "Y", "N", "G", "B"],
-  ["K", "M", "C", "J", "V", "I", "R", "O", "U", "H"],
-  ["N", "T", "E", "A", "S", "L", "B", "I", "F", "D"],
-  ["F", "U", "N", "E", "P", "G", "H", "A", "K", "M"],
-  ["Y", "L", "P", "W", "E", "C", "R", "M", "T", "Q"]
-]
-
+      ["G", "R", "O", "W", "T", "H", "P", "J", "O", "U"],
+      ["O", "U", "R", "N", "E", "Y", "Q", "V", "L", "E"],
+      ["M", "B", "F", "S", "D", "C", "K", "N", "C", "T"],
+      ["C", "L", "A", "H", "M", "I", "E", "W", "R", "Z"],
+      ["W", "E", "L", "C", "O", "M", "E", "U", "S", "N"],
+      ["H", "D", "Z", "L", "Q", "T", "Y", "N", "G", "B"],
+      ["K", "M", "C", "J", "V", "I", "R", "O", "U", "H"],
+      ["N", "T", "E", "A", "S", "L", "B", "I", "F", "D"],
+      ["F", "U", "N", "E", "P", "G", "H", "A", "K", "M"],
+      ["Y", "L", "P", "W", "E", "C", "R", "M", "T", "Q"]
     ];
 
     const container = document.getElementById('puzzle-container');
@@ -173,6 +176,8 @@
 
     function checkWord() {
       const input = document.getElementById('word-input').value.trim().toUpperCase();
+      if (!input) return;
+
       if (input === "180DC") {
         document.getElementById('congrats').innerHTML = "💥 Didn’t know you were this good!";
         document.getElementById('congrats').style.display = 'block';
@@ -193,6 +198,7 @@
         document.querySelector('.mask').classList.add('hidden');
         startCountdown();
       }
+
       document.getElementById('word-input').value = '';
     }
 
@@ -226,7 +232,6 @@
       const msg = document.getElementById('future-input').value;
       if (msg) {
         document.getElementById('saved-msg').textContent = "✅ Message saved!";
-        // In a real scenario, you could use localStorage or a backend
         console.log("Saved message:", msg);
       }
     }

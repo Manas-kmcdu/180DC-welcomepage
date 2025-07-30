@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KMC Fresher Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2fef5;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    .left {
+      flex: 1;
+      background-color: #d2edda;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .letter-box {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .right {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(6, 40px);
+      grid-gap: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .cell {
+      width: 40px;
+      height: 40px;
+      background-color: #ffffff;
+      border: 2px solid #97d4a6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .cell.found {
+      background-color: #97d4a6;
+      color: white;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .input-box input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .input-box button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .congrats {
+      font-size: 1.2rem;
+      color: #388e3c;
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="letter-box">
+        <h2>Welcome to Kirori Mal College!</h2>
+        <p>Dear Freshers,<br><br>
+        A warm welcome to the KMC Batch of 2028/29 - we're so glad to have you here!<br><br>
+        Welcome to college – it’s the start of a journey that’s going to be chaotic, exciting, and unforgettable in all the best ways 🤍<br><br>
+        This is your first task. Solve the fun puzzle on the right, and meet us on <strong>5th August in the Canteen Lawn</strong> with your answers!
+        </p>
+      </div>
+    </div>
+    <div class="right">
+      <div class="grid" id="puzzle-grid"></div>
+      <div class="input-box">
+        <input type="text" id="guess" placeholder="Enter a word...">
+        <button onclick="submitGuess()">Submit</button>
+      </div>
+      <div class="congrats" id="congrats-message">
+        🎉 Congratulations on finding all the words! <br> See you on 5th August in the Canteen Lawn.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const gridData = [
+      ['K', 'F', 'R', 'E', 'S', 'H'],
+      ['E', 'B', 'C', 'L', 'D', 'U'],
+      ['A', 'R', 'E', 'A', 'O', 'Y'],
+      ['D', 'R', 'E', 'A', 'D', 'Y'],
+      ['X', 'A', 'T', 'W', 'O', 'P'],
+      ['P', 'Q', 'Z', 'M', 'C', 'K'],
+    ];
+
+    const words = ['KMC', 'FRESHER', 'READY', 'DEAL', 'WELCOME'];
+    const foundWords = new Set();
+
+    const gridElement = document.getElementById('puzzle-grid');
+
+    function createGrid() {
+      gridElement.innerHTML = '';
+      for (let i = 0; i < gridData.length; i++) {
+        for (let j = 0; j < gridData[i].length; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          cell.textContent = gridData[i][j];
+          gridElement.appendChild(cell);
+        }
+      }
+    }
+
+    function submitGuess() {
+      const guessInput = document.getElementById('guess');
+      const guess = guessInput.value.trim().toUpperCase();
+      if (!guess) return;
+
+      if (words.includes(guess) && !foundWords.has(guess)) {
+        foundWords.add(guess);
+        highlightWord(guess);
+      }
+
+      if (foundWords.size === words.length) {
+        document.getElementById('congrats-message').style.display = 'block';
+      }
+
+      guessInput.value = '';
+    }
+
+    function highlightWord(word) {
+      const flatCells = document.querySelectorAll('.cell');
+      word.split('').forEach(letter => {
+        for (let cell of flatCells) {
+          if (cell.textContent === letter && !cell.classList.contains('found')) {
+            cell.classList.add('found');
+            break;
+          }
+        }
+      });
+    }
+
+    createGrid();
+  </script>
+</body>
+</html>
